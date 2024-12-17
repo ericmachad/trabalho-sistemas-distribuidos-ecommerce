@@ -1,4 +1,4 @@
-package edu.utfpr.ecommerce.model;
+package edu.utfpr.estoque.model;
 
 import java.util.List;
 

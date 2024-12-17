@@ -1,4 +1,4 @@
-package edu.utfpr.estoque.model;
+package utfpr.edu.notificacao.model;
 
 import java.util.List;
 

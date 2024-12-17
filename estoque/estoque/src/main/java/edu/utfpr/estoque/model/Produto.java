@@ -1,4 +1,4 @@
-package edu.utfpr.ecommerce.model;
+package edu.utfpr.estoque.model;
 
 public class Produto {
     private int id;

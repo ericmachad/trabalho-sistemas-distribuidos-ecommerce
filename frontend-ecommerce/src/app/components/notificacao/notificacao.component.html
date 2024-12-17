@@ -1,0 +1,11 @@
+<div class="container">
+    <h2>Notificações</h2>
+    <div *ngIf="notificacoes.length > 0; else empty">
+      <ul>
+        <li *ngFor="let notificacao of notificacoes">{{ notificacao }}</li>
+      </ul>
+    </div>
+    <ng-template #empty>
+      <p>Aguardando notificações...</p>
+    </ng-template>
+  </div>

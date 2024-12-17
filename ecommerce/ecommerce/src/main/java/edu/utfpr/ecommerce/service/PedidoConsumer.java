@@ -1,4 +1,4 @@
-package edu.utfpr.ecommerce.Service;
+package edu.utfpr.ecommerce.service;
 
 import edu.utfpr.ecommerce.model.Pedido;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

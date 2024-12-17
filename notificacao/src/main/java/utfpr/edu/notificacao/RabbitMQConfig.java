@@ -1,4 +1,4 @@
-package utfpr.edu.pagamento;
+package utfpr.edu.notificacao;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -27,13 +27,23 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue pagamentosAprovadosQueue() {
-        return new Queue("Pagamentos_Aprovados");
+    public Queue pedidosCriados2Queue() {
+        return new Queue("Pedidos_Criados_2");
     }
 
     @Bean
-    public Queue pagamentosRecusadosQueue() {
-        return new Queue("Pagamentos_Recusados");
+    public Queue pagamentosAprovados2Queue() {
+        return new Queue("Pagamentos_Aprovados_2");
+    }
+
+    @Bean
+    public Queue pagamentosRecusados2Queue() {
+        return new Queue("Pagamentos_Recusados_2");
+    }
+
+    @Bean
+    public Queue pedidosEnviados2Queue() {
+        return new Queue("Pedidos_Enviados_2");
     }
 
     @Bean
@@ -42,12 +52,22 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPagamentoAprovado(Queue pagamentosAprovadosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pagamentosAprovadosQueue).to(exchange).with("pagamentos.aprovados");
+    public Binding bindPedidosCriados2Queue(Queue pedidosCriados2Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pedidosCriados2Queue).to(exchange).with("pedidos.criados");
     }
 
     @Bean
-    public Binding bindPagamentoRecusado(Queue pagamentosRecusadosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pagamentosRecusadosQueue).to(exchange).with("pagamentos.recusados");
+    public Binding bindPagamentoAprovado2Queue(Queue pagamentosAprovados2Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosAprovados2Queue).to(exchange).with("pagamentos.aprovados");
+    }
+
+    @Bean
+    public Binding bindPagamentoRecusado2Queue(Queue pagamentosRecusados2Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosRecusados2Queue).to(exchange).with("pagamentos.recusados");
+    }
+
+    @Bean
+    public Binding bindPedidosEnviados2Queue(Queue pagamentosRecusados2Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosRecusados2Queue).to(exchange).with("pedidos.enviados");
     }
 }

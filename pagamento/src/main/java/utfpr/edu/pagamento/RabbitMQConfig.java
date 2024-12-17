@@ -6,7 +6,6 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.stereotype.Component;
 
 @Configuration
 public class RabbitMQConfig {
@@ -25,13 +24,13 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue pedidosCriadosQueue() {
-        return new Queue("Pedidos_Criados");
+    public Queue pagamentosAprovadosQueue() {
+        return new Queue("Pagamentos_Aprovados");
     }
 
     @Bean
-    public Queue pedidosExcluidosQueue() {
-        return new Queue("Pedidos_Excluidos");
+    public Queue pagamentosRecusadosQueue() {
+        return new Queue("Pagamentos_Recusados");
     }
 
     @Bean
@@ -40,12 +39,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPedidoCriado(Queue pedidosCriadosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pedidosCriadosQueue).to(exchange).with("pedidos.criados");
+    public Binding bindPedidoCriado(Queue pagamentosAprovadosQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosAprovadosQueue).to(exchange).with("pedidos.criados");
     }
 
     @Bean
-    public Binding bindPedidoExcluido(Queue pedidosExcluidosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pedidosExcluidosQueue).to(exchange).with("pedidos.excluidos");
+    public Binding bindPedidoExcluido(Queue pagamentosRecusadosQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosRecusadosQueue).to(exchange).with("pedidos.excluidos");
     }
 }

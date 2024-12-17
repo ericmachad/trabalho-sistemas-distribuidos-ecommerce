@@ -1,12 +1,14 @@
-package edu.utfpr.ecommerce;
+package utfpr.edu.entrega;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.stereotype.Component;
 
 @Configuration
 public class RabbitMQConfig {
@@ -25,13 +27,13 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue pedidosCriadosQueue() {
-        return new Queue("Pedidos_Criados");
+    public Queue pedidosEnviadosQueue() {
+        return new Queue("Pedidos_Enviados");
     }
 
     @Bean
-    public Queue pedidosExcluidosQueue() {
-        return new Queue("Pedidos_Excluidos");
+    public Queue pagamentosAprovadosQueue() {
+        return new Queue("Pagamentos_Aprovados");
     }
 
     @Bean
@@ -40,12 +42,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPedidoCriado(Queue pedidosCriadosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pedidosCriadosQueue).to(exchange).with("pedidos.criados");
+    public Binding bindPedidosEnviadosQueue(Queue pedidosEnviadosQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(pedidosEnviadosQueue).to(exchange).with("pedidos.enviados");
     }
 
     @Bean
-    public Binding bindPedidoExcluido(Queue pedidosExcluidosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pedidosExcluidosQueue).to(exchange).with("pedidos.excluidos");
+    public Binding bindPagamentosAprovadosQueue(Queue pagamentosAprovadosQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosAprovadosQueue).to(exchange).with("pagamentos.aprovados");
     }
 }

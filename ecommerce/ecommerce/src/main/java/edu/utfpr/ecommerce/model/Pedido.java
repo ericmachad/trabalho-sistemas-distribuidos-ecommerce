@@ -4,9 +4,24 @@ import java.util.List;
 
 public class Pedido {
     private Long id;
-    private String status;
-    private Integer quantidade;
-    private List<String> produtos;
+    private List<Produto> produtos;
+    private double total;
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
 
     public Long getId() {
         return id;
@@ -16,27 +31,4 @@ public class Pedido {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public List<String> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<String> produtos) {
-        this.produtos = produtos;
-    }
 }
