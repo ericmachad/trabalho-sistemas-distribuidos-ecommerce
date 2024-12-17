@@ -1,7 +1,6 @@
 package utfpr.edu.pagamento.service;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import utfpr.edu.pagamento.model.Pagamento;
 
@@ -22,10 +21,11 @@ public class PagamentoService {
     }
 
     public void pagamentoAprovado(Pagamento pagamento) {
-        rabbitTemplate.convertAndSend("ECommerceExchange", "pagamento.aprovado", pagamento);
+        System.out.println("CHEGOU");
+        rabbitTemplate.convertAndSend("ECommerceExchange", "pagamentos.aprovado", pagamento);
     }
     public void pagamentoRecusado(Pagamento pagamento) {
-        rabbitTemplate.convertAndSend("ECommerceExchange", "pagamento.recusado", pagamento);
+        rabbitTemplate.convertAndSend("ECommerceExchange", "pagamentos.recusado", pagamento);
     }
 
 }

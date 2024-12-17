@@ -1,1 +1,18 @@
-<p>produtos works!</p>
+<div>
+    <h3>Produtos</h3>
+    <ul>
+        <li *ngFor="let produto of produtos">{{produto.nome}} - ${{produto.preco}}
+            <button (click)="adicionarAoCarrinho(produto)">Adicionar ao carrinho</button>
+        </li>
+    </ul>
+    <h3>Carrinho</h3>
+    <ul>
+        <li *ngFor="let produto of obterCarrinho()">{{produto.nome}} - ${{produto.preco}} - Qtd {{produto.quantidade}}
+            <button (click)="removerDoCarrinho(produto)">Remover do carrinho</button>
+        </li>
+    </ul>
+    <span>TOTAL {{pedido.total}}</span>
+    <button (click)="finalizarPedido()">Realizar Pedido</button>
+    <button (click)="realizarPagamento()">Realizar Pagamento</button>
+    <button (click)="recusarPagamento()">Recusar Pagamento</button>
+</div>

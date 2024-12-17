@@ -6,11 +6,15 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ProdutosService {
-  private urlProdutos = 'http://localhost:8080/api/pedido/produtos';
+export class ProdutoService {
+  private urlBase = 'http://localhost:8080/api/pedido';
   constructor(private http: HttpClient) { }
 
   listarProdutos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>(this.urlProdutos);
+    return this.http.get<Produto[]>(`${this.urlBase}/produtos`);
+  }
+
+  finalizarPedido(pedido: any): Observable<string> {
+    return this.http.post<string>(`${this.urlBase}`, pedido)
   }
 }

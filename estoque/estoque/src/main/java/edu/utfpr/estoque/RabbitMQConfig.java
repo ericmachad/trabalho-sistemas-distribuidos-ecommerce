@@ -24,13 +24,13 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue pedidosCriadosQueue() {
-        return new Queue("Pedidos_Criados");
+    public Queue pedidosCriados3Queue() {
+        return new Queue("Pedidos_Criados_3");
     }
 
     @Bean
-    public Queue pedidosExcluidosQueue() {
-        return new Queue("Pedidos_Excluidos");
+    public Queue pedidosExcluidos3Queue() {
+        return new Queue("Pedidos_Excluidos_3");
     }
 
     @Bean
@@ -39,12 +39,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPedidoCriado(Queue pedidosCriadosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pedidosCriadosQueue).to(exchange).with("pedidos.criados");
+    public Binding bindPedido3CriadoQueue(Queue pedidosCriados3Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pedidosCriados3Queue).to(exchange).with("pedidos.criados");
     }
 
     @Bean
-    public Binding bindPedidoExcluido(Queue pedidosExcluidosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pedidosExcluidosQueue).to(exchange).with("pedidos.excluidos");
+    public Binding bindPedido3ExcluidoQueue(Queue pedidosExcluidos3Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pedidosExcluidos3Queue).to(exchange).with("pedidos.excluidos");
     }
 }

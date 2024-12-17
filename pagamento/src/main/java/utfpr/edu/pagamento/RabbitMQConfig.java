@@ -1,4 +1,4 @@
-package edu.utfpr.estoque;
+package utfpr.edu.pagamento;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -39,12 +39,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPedidoCriado(Queue pagamentosAprovadosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pagamentosAprovadosQueue).to(exchange).with("pedidos.criados");
+    public Binding bindPagamentosAprovadosQueue(Queue pagamentosAprovadosQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosAprovadosQueue).to(exchange).with("pagamentos.aprovados");
     }
 
     @Bean
-    public Binding bindPedidoExcluido(Queue pagamentosRecusadosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pagamentosRecusadosQueue).to(exchange).with("pedidos.excluidos");
+    public Binding bindPagamentosRecusadosQueue(Queue pagamentosRecusadosQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosRecusadosQueue).to(exchange).with("pagamentos.recusados");
     }
 }

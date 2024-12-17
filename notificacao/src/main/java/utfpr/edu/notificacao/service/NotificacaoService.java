@@ -34,7 +34,8 @@ public class NotificacaoService {
                         .name("notificacao")
                         .data(mensagem));
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                    System.out.println("Erro ao enviar SSE: " + e.getMessage());
+                    emitters.remove(emitter); // Remove o emitter desconectado
             }
         });
     }

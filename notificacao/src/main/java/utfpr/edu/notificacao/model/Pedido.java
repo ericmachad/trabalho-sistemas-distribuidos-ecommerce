@@ -6,7 +6,7 @@ public class Pedido {
     private String id;
     private String status;
     private Integer quantidade;
-    private List<String> produtos;
+    private List<Produto> produtos;
 
     public String getId() {
         return id;
@@ -32,11 +32,11 @@ public class Pedido {
         this.quantidade = quantidade;
     }
 
-    public List<String> getProdutos() {
+    public List<Produto> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<String> produtos) {
+    public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
 }

@@ -1,4 +1,4 @@
-package edu.utfpr.ecommerce.model;
+package utfpr.edu.notificacao.model;
 
 public class Produto {
     private Long id;

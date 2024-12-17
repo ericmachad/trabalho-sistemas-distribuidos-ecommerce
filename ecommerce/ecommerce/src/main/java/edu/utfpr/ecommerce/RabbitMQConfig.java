@@ -34,6 +34,16 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Queue pagamentosAprovados3Queue() {
+        return new Queue("Pagamentos_Aprovados_3");
+    }
+
+    @Bean
+    public Queue pagamentosRecusados3Queue() {
+        return new Queue("Pagamentos_Recusados_3");
+    }
+
+    @Bean
     public TopicExchange exchange() {
         return new TopicExchange("ECommerceExchange");
     }
@@ -44,7 +54,17 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPedidoExcluido(Queue pedidosExcluidosQueue, TopicExchange exchange) {
+    public Binding bindPedidoExcluidoQueue(Queue pedidosExcluidosQueue, TopicExchange exchange) {
         return BindingBuilder.bind(pedidosExcluidosQueue).to(exchange).with("pedidos.excluidos");
+    }
+
+    @Bean
+    public Binding bindPagamentosAprovados3Queue(Queue pagamentosAprovados3Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosAprovados3Queue).to(exchange).with("pagamentos.aprovados");
+    }
+
+    @Bean
+    public Binding bindPagamentosRecusados3Queue(Queue pagamentosRecusados3Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosRecusados3Queue).to(exchange).with("pagamentos.recusados");
     }
 }
