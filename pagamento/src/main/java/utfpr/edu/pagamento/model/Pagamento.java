@@ -3,6 +3,7 @@ package utfpr.edu.pagamento.model;
 public class Pagamento {
     Long idTransacao;
     String status;
+    Pedido pedido;
 
     public Long getIdTransacao() {
         return idTransacao;
@@ -18,5 +19,13 @@ public class Pagamento {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 }

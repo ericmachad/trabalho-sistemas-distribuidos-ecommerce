@@ -1,4 +1,4 @@
-package utfpr.edu.notificacao.model;
+package utfpr.edu.entrega.model;
 
 public class Pagamento {
     Long idTransacao;

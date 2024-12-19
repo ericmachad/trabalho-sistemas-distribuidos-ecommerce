@@ -1,30 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { Notificacao } from '../model/notificacao.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificacaoService {
-  private sseUrl = 'http://localhost:8084/api/notificacao'
+  private sseUrl = 'http://localhost:8084/api/notificacao';
+  private notificacaoSubject = new Subject<Notificacao>();
+  notificacao$ = this.notificacaoSubject.asObservable();
+
   constructor() { }
 
-  obterNotificacoes(): Observable<string> {
-    return new Observable<string>((observer) => {
+  obterNotificacoes(): Observable<any> {
+    return new Observable<any>((observer) => {
       const eventSource = new EventSource(this.sseUrl);
 
       eventSource.addEventListener('notificacao', (event: MessageEvent) => {
-        observer.next(event.data)
+        observer.next(JSON.parse(event.data))
       });
 
-      eventSource.onerror =(error) => {
+      eventSource.onerror = (error) => {
         console.error('Erro no SSE: ' + error);
         eventSource.close();
         console.error((error));
-      } 
+      }
 
       return () => {
         eventSource.close();
       }
     });
+  }
+
+  emitirNotificacao(notificacao: Notificacao): void {
+    this.notificacaoSubject.next(notificacao);
   }
 }

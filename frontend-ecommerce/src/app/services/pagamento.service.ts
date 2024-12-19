@@ -17,6 +17,6 @@ export class PagamentoService {
   }
   
   recusarPagamento(pedido: any): Observable<string> {
-    return this.http.post<string>(`${this.urlBase}`, pedido)
+    return this.http.post<string>(`${this.urlBase}/webhook`, pedido)
   }
 }

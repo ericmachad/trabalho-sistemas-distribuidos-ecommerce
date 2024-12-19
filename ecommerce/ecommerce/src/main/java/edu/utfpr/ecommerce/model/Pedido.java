@@ -5,6 +5,7 @@ import java.util.List;
 public class Pedido {
     private Long id;
     private List<Produto> produtos;
+    private String status;
     private double total;
 
     public List<Produto> getProdutos() {
@@ -13,6 +14,14 @@ public class Pedido {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public double getTotal() {

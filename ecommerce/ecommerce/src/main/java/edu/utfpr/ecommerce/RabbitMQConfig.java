@@ -54,7 +54,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPedidoExcluidoQueue(Queue pedidosExcluidosQueue, TopicExchange exchange) {
+    public Binding bindPedidosExcluidosQueue(Queue pedidosExcluidosQueue, TopicExchange exchange) {
         return BindingBuilder.bind(pedidosExcluidosQueue).to(exchange).with("pedidos.excluidos");
     }
 

@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:4200") // URL do frontend Angular
-                .allowedMethods("GET", "POST");
+                .allowedMethods("GET", "POST", "DELETE");
     }
 }
 

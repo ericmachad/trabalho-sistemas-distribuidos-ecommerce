@@ -32,6 +32,11 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Queue pedidosExcluidos2Queue() {
+        return new Queue("Pedidos_Excluidos_2");
+    }
+
+    @Bean
     public Queue pagamentosAprovados2Queue() {
         return new Queue("Pagamentos_Aprovados_2");
     }
@@ -57,17 +62,22 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPagamentoAprovado2Queue(Queue pagamentosAprovados2Queue, TopicExchange exchange) {
+    public Binding bindPedidosExcluidos2Queue(Queue pedidosExcluidos2Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pedidosExcluidos2Queue).to(exchange).with("pedidos.excluidos");
+    }
+
+    @Bean
+    public Binding bindPagamentosAprovados2Queue(Queue pagamentosAprovados2Queue, TopicExchange exchange) {
         return BindingBuilder.bind(pagamentosAprovados2Queue).to(exchange).with("pagamentos.aprovados");
     }
 
     @Bean
-    public Binding bindPagamentoRecusado2Queue(Queue pagamentosRecusados2Queue, TopicExchange exchange) {
+    public Binding bindPagamentosRecusados2Queue(Queue pagamentosRecusados2Queue, TopicExchange exchange) {
         return BindingBuilder.bind(pagamentosRecusados2Queue).to(exchange).with("pagamentos.recusados");
     }
 
     @Bean
-    public Binding bindPedidosEnviados2Queue(Queue pagamentosRecusados2Queue, TopicExchange exchange) {
-        return BindingBuilder.bind(pagamentosRecusados2Queue).to(exchange).with("pedidos.enviados");
+    public Binding bindPedidosEnviados2Queue(Queue pedidosEnviados2Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pedidosEnviados2Queue).to(exchange).with("pedidos.enviados");
     }
 }

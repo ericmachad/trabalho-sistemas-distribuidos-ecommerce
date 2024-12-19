@@ -7,7 +7,9 @@ import utfpr.edu.notificacao.model.Pagamento;
 import utfpr.edu.notificacao.model.Pedido;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
@@ -18,24 +20,24 @@ public class NotificacaoService {
         SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
         emitters.add(emitter);
 
-        emitter.onCompletion(()->emitters.remove(emitter));
-        emitter.onTimeout(()->emitters.remove(emitter));
+        emitter.onCompletion(() -> emitters.remove(emitter));
+        emitter.onTimeout(() -> emitters.remove(emitter));
 
 
         return emitter;
     }
 
-    public void enviarNotificacao(String mensagem) {
+    public void enviarNotificacao(Map<String, Object> mensagem) {
         System.out.println("chegou");
         System.out.println(emitters.size());
         emitters.forEach(emitter -> {
-            try{
+            try {
                 emitter.send(SseEmitter.event()
                         .name("notificacao")
                         .data(mensagem));
             } catch (IOException e) {
-                    System.out.println("Erro ao enviar SSE: " + e.getMessage());
-                    emitters.remove(emitter); // Remove o emitter desconectado
+                System.out.println("Erro ao enviar SSE: " + e.getMessage());
+                emitters.remove(emitter); // Remove o emitter desconectado
             }
         });
     }
@@ -43,21 +45,35 @@ public class NotificacaoService {
     @RabbitListener(queues = "${queue.pedidos-criados}")
     public void gerenciarPedidosCriados(Pedido pedido) {
         System.out.println("Chegou" + pedido.getId());
-        enviarNotificacao("Pedido Criado: " + pedido.getId());
+        enviarNotificacao(respose("PEDIDO " + pedido.getId() + " CRIADO", pedido, "pedido"));
+    }
+
+    @RabbitListener(queues = "${queue.pedidos-excluidos}")
+    public void gerenciarPedidosExcluidos(Pedido pedido) {
+        System.out.println("Chegou" + pedido.getId());
+        enviarNotificacao(respose("PEDIDO " + pedido.getId() + " EXCLUIDO", pedido, "pedido"));
     }
 
     @RabbitListener(queues = "${queue.pagamentos-aprovados}")
     public void gerenciarPagamentosAprovados(Pagamento pagamento) {
-        enviarNotificacao("Pagamento Aprovado: " + pagamento.getIdTransacao());
+        enviarNotificacao(respose("PEDIDO" + pagamento.getPedido().getId() + ": pagamento APROVADO. Transação: " + pagamento.getIdTransacao(), pagamento, "pagamento"));
     }
 
     @RabbitListener(queues = "${queue.pagamentos-recusados}")
     public void gerenciarPagamentosRecusados(Pagamento pagamento) {
-        enviarNotificacao("Pagamento Recusado: " + pagamento.getIdTransacao());
+        enviarNotificacao(respose("PEDIDO" + pagamento.getPedido().getId() + ": pagamento RECUSADO. Transação: " + pagamento.getIdTransacao(), pagamento, "pagamento"));
     }
 
     @RabbitListener(queues = "${queue.pedidos-enviados}")
     public void gerenciarPedidosEnviados(Pedido pedido) {
-        enviarNotificacao("Pedido Enviado: " + pedido.getId());
+        enviarNotificacao(respose("PEDIDO " + pedido.getId() + " ENVIADO", pedido, "envio"));
+    }
+
+    private HashMap<String, Object> respose(String mensagem, Object objeto, String tipo) {
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("mensagem", mensagem);
+        response.put("item", objeto);
+        response.put("tipo", tipo);
+        return response;
     }
 }

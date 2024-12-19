@@ -1,5 +1,7 @@
+import { Pedido } from "./pedido.model";
 
 export interface Pagamento {
     idTransacao: number;
-    status: string
+    pedido: Pedido;
+    status: string;
 }

@@ -7,9 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/pedido")
@@ -47,24 +45,34 @@ public class PedidoController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> criarPedido(@RequestBody Pedido pedido) {
+    public ResponseEntity<Object> criarPedido(@RequestBody Pedido pedido) {
+        Map<String, Object> response = new HashMap<>();
         if (pedido == null || pedido.getProdutos() == null || pedido.getProdutos().isEmpty()) {
-            return ResponseEntity.badRequest().body("Pedido inválido! Adicione itens ao seu pedido");
+            response.put("mensagem", "Pedido inválido! Adicione itens ao seu pedido");
+            response.put("sucesso", false);
+            return ResponseEntity.badRequest().body(response);
         }
         pedido.setId(pedidos.size() + 1L);
+        pedido.setStatus("Aguardando Pagamento");
         pedidos.add(pedido);
         pedidoPublisher.publicarPedidoCriado(pedido);
-        return ResponseEntity.ok("Pedido " + pedido.getId() + " criado com sucesso!");
+        response.put("mensagem", "Pedido " + pedido.getId() + " criado com sucesso com sucesso!");
+        response.put("pedido", pedido);
+        response.put("sucesso", true);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> excluirPedido(@PathVariable Long id) {
+    public ResponseEntity<Object> excluirPedido(@PathVariable Long id) {
         Optional<Pedido> pedido = pedidos.stream().filter(p -> p.getId() == id).findFirst();
         if (pedido.isPresent()) {
             Pedido pedidoASerExcluido = pedido.get();
+            pedidoASerExcluido.setStatus("Pedido Excluido");
             pedidos.remove(pedidoASerExcluido);
             pedidoPublisher.publicarPedidoExcluido(pedidoASerExcluido);
-            return ResponseEntity.ok("Pedido excluído com sucesso");
+            Map<String, String> response = new HashMap<>();
+            response.put("mensagem", "Pedido excluido com sucesso!");
+            return ResponseEntity.ok(response);
         }
         return ResponseEntity.notFound().build();
     }

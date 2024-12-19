@@ -1,4 +1,4 @@
-package utfpr.edu.entrega.model;
+package utfpr.edu.pagamento.model;
 
 import java.util.List;
 
@@ -8,20 +8,20 @@ public class Pedido {
     private String status;
     private double total;
 
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     public double getTotal() {

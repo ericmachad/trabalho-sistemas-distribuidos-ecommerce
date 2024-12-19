@@ -32,8 +32,8 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue pagamentosAprovadosQueue() {
-        return new Queue("Pagamentos_Aprovados");
+    public Queue pagamentosAprovados4Queue() {
+        return new Queue("Pagamentos_Aprovados_4");
     }
 
     @Bean
@@ -47,7 +47,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPagamentosAprovadosQueue(Queue pagamentosAprovadosQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(pagamentosAprovadosQueue).to(exchange).with("pagamentos.aprovados");
+    public Binding bindPagamentosAprovados4Queue(Queue pagamentosAprovados4Queue, TopicExchange exchange) {
+        return BindingBuilder.bind(pagamentosAprovados4Queue).to(exchange).with("pagamentos.aprovados");
     }
 }

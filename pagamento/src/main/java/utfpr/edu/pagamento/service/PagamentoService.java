@@ -13,19 +13,21 @@ public class PagamentoService {
     }
 
     public void processarPagamento(Pagamento pagamento){
+        System.out.println(pagamento.getStatus());
         if (pagamento.getStatus().equalsIgnoreCase("APROVADO")) {
+            pagamento.setStatus("Pagamento Aprovado");
             pagamentoAprovado(pagamento);
         } else {
+            pagamento.setStatus("Pagamento Recusado");
             pagamentoRecusado(pagamento);
         }
     }
 
     public void pagamentoAprovado(Pagamento pagamento) {
-        System.out.println("CHEGOU");
-        rabbitTemplate.convertAndSend("ECommerceExchange", "pagamentos.aprovado", pagamento);
+        rabbitTemplate.convertAndSend("ECommerceExchange", "pagamentos.aprovados", pagamento);
     }
     public void pagamentoRecusado(Pagamento pagamento) {
-        rabbitTemplate.convertAndSend("ECommerceExchange", "pagamentos.recusado", pagamento);
+        rabbitTemplate.convertAndSend("ECommerceExchange", "pagamentos.recusados", pagamento);
     }
 
 }

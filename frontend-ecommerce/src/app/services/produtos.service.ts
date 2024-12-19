@@ -14,7 +14,11 @@ export class ProdutoService {
     return this.http.get<Produto[]>(`${this.urlBase}/produtos`);
   }
 
-  finalizarPedido(pedido: any): Observable<string> {
+  finalizarPedido(pedido: any): Observable<any> {
     return this.http.post<string>(`${this.urlBase}`, pedido)
+  }
+
+  excluirPedido(pedidoId: any): Observable<any> {
+    return this.http.delete<string>(`${this.urlBase}/${pedidoId}`)
   }
 }

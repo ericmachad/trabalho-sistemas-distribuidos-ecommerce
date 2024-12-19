@@ -39,12 +39,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindPedido3CriadoQueue(Queue pedidosCriados3Queue, TopicExchange exchange) {
+    public Binding bindPedidosCriados3Queue(Queue pedidosCriados3Queue, TopicExchange exchange) {
         return BindingBuilder.bind(pedidosCriados3Queue).to(exchange).with("pedidos.criados");
     }
 
     @Bean
-    public Binding bindPedido3ExcluidoQueue(Queue pedidosExcluidos3Queue, TopicExchange exchange) {
+    public Binding bindPedidosExcluidos3Queue(Queue pedidosExcluidos3Queue, TopicExchange exchange) {
         return BindingBuilder.bind(pedidosExcluidos3Queue).to(exchange).with("pedidos.excluidos");
     }
 }
