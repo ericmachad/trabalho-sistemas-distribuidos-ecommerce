@@ -76,20 +76,20 @@
     <h2>Lista de Pedidos</h2>
     <mat-table [dataSource]="pedidos" class="mat-elevation-z8">
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let pedido"> {{pedido.id}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let pedido"> {{pedido.id}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> STATUS </th>
-        <td mat-cell *matCellDef="let pedido"> {{pedido.status}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> STATUS </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let pedido"> {{pedido.status}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> TOTAL </th>
-        <td mat-cell *matCellDef="let pedido"> {{pedido.total | currency}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> TOTAL </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let pedido"> {{pedido.total | currency}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef> AÇÕES </th>
-        <td mat-cell *matCellDef="let pedido">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> AÇÕES </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let pedido">
           <button mat-icon-button style="color: green;" (click)="realizarPagamento(pedido)">
             <mat-icon>attach_money</mat-icon>
           </button>
@@ -99,10 +99,10 @@
           <button mat-icon-button style="color: red;" (click)="excluirPedido(pedido)">
             <mat-icon>delete</mat-icon>
           </button>
-        </td>
+        </mat-cell>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="['id', 'status', 'total', 'acoes']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['id', 'status', 'total', 'acoes'];"></tr>
+      <mat-header-row *matHeaderRowDef="['id', 'status', 'total', 'acoes']"></mat-header-row>
+      <mat-row mat-row *matRowDef="let row; columns: ['id', 'status', 'total', 'acoes'];"></mat-row>
     </mat-table>
   </mat-card>
 </div>
